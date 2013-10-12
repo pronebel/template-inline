@@ -15,11 +15,9 @@ module.exports = function(grunt) {
     var opts = this.options();
     var done = this.async();
 
-    ///循环每个文件
+
     this.files.forEach(function(file) {
-
       var dest = file.dest;
-
       var tasks;
 
       tasks = file.src.map(function(srcFile) {
@@ -28,10 +26,9 @@ module.exports = function(grunt) {
         };
       });
 
-      // 回调函数
       async.parallel(tasks, function(err, output) {
         grunt.file.write(dest, output);
-       // grunt.log.writeln('File "' + dest + '" created.');
+        grunt.log.writeln('File "' + dest + '" created.');
         done();
       });
     });

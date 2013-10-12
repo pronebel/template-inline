@@ -1,47 +1,30 @@
 /*
- * Grunt Image Embed
- * https://github.com/ehynds/grunt-image-embed
+ * Template-inline
+ * https://github.com/pronebel/template-inline
  *
- * Copyright (c) 2012 Eric Hynds
+ * Copyright (c) 2013 nebel
  * Licensed under the MIT license.
  */
 
-// Node libs
+
 var fs = require("fs");
 var path = require("path");
 
-//xxxxx =  "text!yyyyyyyyy"
-var regTemplatePattern1 = /["']{1}text\!([A-Za-z0-9-_\/]+\.html)["']{1}/g;
 
+var regTemplatePattern1 = /["']{1}text\!([A-Za-z0-9-_\/]+\.[A-Za-z0-9]+)["']{1}/g;
 
-
-// Grunt export wrapper
 exports.init = function (grunt) {
     "use strict";
 
     var exports = {};
 
-
-
-    // Grunt utils
     var utils = grunt.utils || grunt.util;
     var file = grunt.file;
     var _ = utils._;
     var async = utils.async;
 
-    /**
-     * require-text ：为绝对路径，或者相对于起始目录的路径
-     * @param srcFile
-     * @param opts
-     * @param lasceCallBackOut
-     */
     exports.template = function (srcFile, opts, lasceCallBackOut) {
         opts = opts || {};
-
-        // Cache of already converted images
-        var cache = {};
-
-        // Shift args if no options object is specified
         if (utils.kindOf(opts) === "function") {
             lasceCallBackOut = opts;
             opts = {};
@@ -62,10 +45,7 @@ exports.init = function (grunt) {
             },
             function (complete) {
 
-
-
-
-                 htmlPath = htmlGroup[1];
+                htmlPath = htmlGroup[1];
 
                 if (htmlPath != null) {
 
@@ -79,17 +59,12 @@ exports.init = function (grunt) {
             },
             function () {
 
-
                 for(var prop in htmlSrcArray){
 
-
-                  
-
-
-
-                    htmlSource =  htmlSource.replace(prop,'"tplin!'+htmlSrcArray[prop]+'"');
+                    while(htmlSource.indexOf(prop)>-1){
+                        htmlSource =  htmlSource.replace(prop,'"tplin!'+htmlSrcArray[prop]+'"');
+                    }
                 }
-
 
                 lasceCallBackOut(null, htmlSource);
             });
@@ -97,7 +72,6 @@ exports.init = function (grunt) {
 
 
     exports.getTemplateString = function (templateSrc, opts, getFileDone) {
-
 
         if (utils.kindOf(opts) === "function") {
             getFileDone = opts;
@@ -113,23 +87,21 @@ exports.init = function (grunt) {
             }
         };
 
-
 		var readFilePath = opts.baseDir + templateSrc;
-grunt.log.writeln(readFilePath);
+
         if (!fs.existsSync(readFilePath)) {
-            grunt.fail.warn("Template: " + readFilePath + " does not exist~~~~~~~~~~~~~~~");
+            grunt.fail.warn("Template: " + readFilePath + " does not exist!");
             getFileComplete(null, templateSrc);
             return;
         }
 
         var srcHtml = fs.readFileSync(readFilePath);
-        srcHtml =  new Buffer(srcHtml).toString('base64');     //encodeURIComponent(srcHtml);//
+        srcHtml = (opts.type=="uri") ? encodeURIComponent(srcHtml) : new Buffer(srcHtml).toString('base64');
 
         var encoded =  srcHtml;
         getFileComplete(null, encoded);
 
     };
-
 
     return exports;
 };
