@@ -17,11 +17,20 @@ example/todoMvc的grunt配置
 如图所示，没有使用插件时，会加载模板文件。使用插件不会加载模板文件。
 
 
+##### 使用方式
 
+1.参见：代码下的TodoMVC的grunt配置
 
+2.原来的requirejs中的 **"text!xxx/yyy.html"会被编译成  "tplin!html内容编码"。** TodoMVC中的Rrequirejs的目录中有个tplin文件，改动代码，根据编码方式进行解码实现。
+	
+	注：html内容编码为读取的html的内容，根据编码方式配置生成编码后的内容。
+	目前支持base64，encodeURIComponent编码
+	
+	
 
+	
+	
 
-成熟的使用方案需要结合项目进行使用，
 
 
 
@@ -83,7 +92,9 @@ example/todoMvc的grunt配置
 	但目前业内没有广泛推广的成熟方式，估计应用预加载的单页面程序也不多。
 
 
-个人项目中的grunt配置：
+
+
+### 项目中的grunt配置供参考构建应用思路：
 
 
   
