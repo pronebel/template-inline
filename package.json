@@ -1,8 +1,14 @@
 {
-  "name": "template-inline",
+  "name": "template-inline-require",
   "description": "Grunt task for embedding html template as base64 or  UriEncode inside your js.",
-  "version": "0.3.1",
+  "version": "0.3.6",
   "homepage": "",
+
+    "author": {
+        "name": "nebel",
+        "email": "nebel08@gmail.com",
+        "url": "https://github.com/pronebel/template-inline"
+    },
 
   "main": "grunt.js",
  
