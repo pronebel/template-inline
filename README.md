@@ -87,98 +87,97 @@ example/todoMvc的grunt配置
 
 
   
-module.exports = function(grunt) {
-    "use strict";
-    var jsFiles = [
-        'js/app/**/*.js',
-        'js/model/**/*.js',
-        'js/module/**/*.js',
-        'js/view/**/*.js'
-    ];
+	module.exports = function(grunt) {
+	    "use strict";
+	    var jsFiles = [
+	        'js/app/**/*.js',
+	        'js/model/**/*.js',
+	        'js/module/**/*.js',
+	        'js/view/**/*.js'
+	    ];
+	
+	    grunt.initConfig({
+	        jshint: {
+	            files: jsFiles
+	        },
+	        templateInline: {
+	
+	            tpl: {
+	
+	                files : [
+	                    {
+	                        expand: true,
+	                        cwd : 'js/',
+	                        src : ['*/**/*.js','!lib/comb.src/*.js'],
+	                        filter : 'isFile',
+	                        dest : '.tplin/'
+	                    }
+	                ],
+	
+	                options: {
+	                    baseDir: "js/",
+	                    type:"base4" //base4 or uri
+	                }
+	            }
+	          
+	        },
+	        compass: {
+	            compile: {
+	                options: {
+	                    sassDir: 'sass',
+	                    cssDir: 'css',
+	                    environment: 'production'
+	                }
+	            }
+	        },
+	        clean: {
+	            css: [ 'css/*.css'] ,
+	            dist: [ 'dist/' ],
+	            tplin: [ '.tplin/' ]
+	        },
+	        uglify : {
+	            options: {
+	                mangle: {
+	                    except: ['require','exports','requirejs']
+	                }
+	            },
+	            build: {
+	              files:  [
+	                  {
+	
+	                    expand: true,
+	                    cwd:'.tplin/',
+	                    src : ['**/*.js'],
+	                    dest: 'dist/'
+	                  }
+	              ]
+	
+	            }
+	        }
+	    });
+	
+	
+	
+	
+	
+	    grunt.loadNpmTasks('grunt-contrib-mincss');
+	    grunt.loadNpmTasks('grunt-contrib-copy');
+	    grunt.loadNpmTasks('grunt-contrib-jshint');
+	    grunt.loadNpmTasks('grunt-contrib-compass');
+	    grunt.loadNpmTasks('grunt-contrib-uglify');
+	    grunt.loadNpmTasks('grunt-contrib-clean');
+	    grunt.loadNpmTasks('template-inline');
+	
+	
+	
+	
+	    grunt.registerTask("compile:js",['clean:dist','templateInline:tpl','uglify:build','clean:tplin']);
+	    grunt.registerTask("compile:css",['clean:css','compass:compile'])
+	
+	
+	    grunt.registerTask('default', ['compile:js' ]);
 
-    grunt.initConfig({
-        jshint: {
-            files: jsFiles
-        },
-        templateInline: {
-
-            tpl: {
-
-                files : [
-                    {
-                        expand: true,
-                        cwd : 'js/',
-                        src : ['*/**/*.js','!lib/comb.src/*.js'],
-                        filter : 'isFile',
-                        dest : '.tplin/'
-                    }
-                ],
-
-                options: {
-                    baseDir: "js/",
-                    type:"base4" //base4 or uri
-                }
-            }
-          
-        },
-        compass: {
-            compile: {
-                options: {
-                    sassDir: 'sass',
-                    cssDir: 'css',
-                    environment: 'production'
-                }
-            }
-        },
-        clean: {
-            css: [ 'css/*.css'] ,
-            dist: [ 'dist/' ],
-            tplin: [ '.tplin/' ]
-        },
-        uglify : {
-            options: {
-                mangle: {
-                    except: ['require','exports','requirejs']
-                }
-            },
-            build: {
-              files:  [
-                  {
-
-                    expand: true,
-                    cwd:'.tplin/',
-                    src : ['**/*.js'],
-                    dest: 'dist/'
-                  }
-              ]
-
-            }
-        }
-    });
-
-
-
-
-
-    grunt.loadNpmTasks('grunt-contrib-mincss');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-compass');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('template-inline');
-
-
-
-
-    grunt.registerTask("compile:js",['clean:dist','templateInline:tpl','uglify:build','clean:tplin']);
-    grunt.registerTask("compile:css",['clean:css','compass:compile'])
-
-
-    grunt.registerTask('default', ['compile:js' ]);
-
-
-};
+	};
 
 
 
