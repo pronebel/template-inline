@@ -2,40 +2,33 @@
 module.exports = function(grunt) {
   "use strict";
 
-  grunt.loadTasks("../tasks");
+  grunt.loadTasks("../../tasks");
 
   grunt.initConfig({
-      templateEmbed: {
+
+      templateInline: {
 
         tpl: {
-
-            /*src: ["template-embed*//*.js"],
-
-
-            dest: 'css/ssss.js',
-
-            options: {
-
-
-                // Base directory if you use absolute paths in your stylesheet
-                // baseDir: "/Users/ehynds/projects/grunt-image-embed/"
-            }
-*/
-
             files : [
                 {
                     expand: true,
-                    cwd : './',
-                    src : 'template-embed/*',
+                    cwd : 'js/',
+                    src : '**/*.js',
                     filter : 'isFile',
-                    dest : 'bd/'
+                    dest : 'dist/'
                 }
-            ]
+            ],
+            options: {
+
+                // Base directory if you use absolute paths in your stylesheet
+                baseDir: "js/",
+                type:"uri" //base4 or uri
+            }
 
 
         }
     }
   });
 
-  grunt.registerTask("default", ["templateEmbed"]);
+  grunt.registerTask("default", ["templateInline"]);
 };

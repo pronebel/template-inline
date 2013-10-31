@@ -1,6 +1,6 @@
 {
-  "name": "grunt-image-embed",
-  "description": "Grunt task for embedding images as base64 data URIs inside your stylesheets.",
+  "name": "template-inline",
+  "description": "Grunt task for embedding html template as base64 or  UriEncode inside your js.",
   "version": "0.3.1",
   "homepage": "",
 
@@ -25,16 +25,12 @@
   "keywords": [
     "gruntplugin",
     "base64",
-    "data URI",
-    "css",
-    "image"
+    "template embed",
+    "template inline"
   ],
   "readme": "",
   "readmeFilename": "README.md",
   "_id": "template-inline@0.0.1",
-  "dist": {
-    "shasum": "ed64b4452a1e1cd6be4846c444c7d998fb9bd31d"
-  },
-  "_from": "template-inline@0.0.1",
-  "_resolved": "https://registry.npmjs.org/grunt-image-embed/-/grunt-image-embed-0.3.1.tgz"
+
+  "_from": "template-inline@0.0.1"
 }

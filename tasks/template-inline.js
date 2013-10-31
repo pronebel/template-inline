@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   // Grunt utils
   var async = grunt.util.async;
 
-  grunt.registerMultiTask("templateEmbed", "", function() {
+  grunt.registerMultiTask("templateInline", "", function() {
 
     var opts = this.options();
     var done = this.async();
